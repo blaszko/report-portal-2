@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginTest {
 
-    String pageUrl = "http://localhost:8080/ui/#login/";
+    String pageUrl = "http://localhost:8080/ui/#login";
     String login = "default";
     String password = "1q2w3e";
     private WebDriver driver;
