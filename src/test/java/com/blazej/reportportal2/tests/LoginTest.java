@@ -1,20 +1,8 @@
-package com.blazej.reportportal2.Tests;
+package com.blazej.reportportal2.tests;
 
 import com.blazej.reportportal2.components.common.LoginPage;
 import com.blazej.reportportal2.components.dashboard.DashboardPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-
-import java.time.Duration;
 
 public class LoginTest extends BaseTest{
     String pageUrl = "http://localhost:8080/ui/#login";
@@ -24,8 +12,8 @@ public class LoginTest extends BaseTest{
     public void loginToReportPortal(){
         driver.navigate().to(this.pageUrl);
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.fillLogin(this.login);
-        loginPage.fillPassword(this.password);
+        loginPage.fillLogin(properties.getProperty("LOGIN"));
+        loginPage.fillPassword(properties.getProperty("PASSWORD"));
         loginPage.clickSubmitButton();
         DashboardPage dashboardPage = new DashboardPage(driver);
         dashboardPage.verifyLoadedDashboardPage();
@@ -40,8 +28,8 @@ public class LoginTest extends BaseTest{
     public void loginToReportPortalCopy(){
         driver.navigate().to(this.pageUrl);
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.fillLogin(this.login);
-        loginPage.fillPassword(this.password);
+        loginPage.fillLogin(properties.getProperty("LOGIN"));
+        loginPage.fillPassword(properties.getProperty("PASSWORD"));
         loginPage.clickSubmitButton();
         DashboardPage dashboardPage = new DashboardPage(driver);
         dashboardPage.verifyLoadedDashboardPage();
