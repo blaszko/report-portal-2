@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class LoginTest extends BaseTest {
+class LoginTest extends BaseTest {
     String pageUrl = PropertiesLoader.loadProperty("BASE_URI") + "/#login";
     String login = PropertiesLoader.loadProperty("LOGIN");
     String password = PropertiesLoader.loadProperty("PASSWORD");
@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @Description("Login to report portal with valid login and password")
-    public void loginToReportPortal() {
+    void loginToReportPortal() {
         driver.navigate().to(this.pageUrl);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.waitForLoadedLoginPage();
@@ -36,7 +36,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void loginToReportPortalCopy() {
+    void loginToReportPortalCopy() {
         driver.navigate().to(this.pageUrl);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.fillLogin(this.login);
