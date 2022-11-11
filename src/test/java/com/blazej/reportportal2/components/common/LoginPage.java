@@ -1,19 +1,20 @@
 package com.blazej.reportportal2.components.common;
 
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.blazej.reportportal2.utils.methodsModuleGui.WaitMethods.waitForVisible;
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class LoginPage {
-    private final String url = "http://localhost:8080/ui/#login";
-    private WebDriver driver;
+    private final WebDriver driver;
     private static final Logger logger = LogManager.getLogger(LoginPage.class.getName());
 
     public LoginPage(WebDriver driver) {
@@ -30,16 +31,19 @@ public class LoginPage {
     @FindBy(css = "[type=\"submit\"]")
     public WebElement loginButton;
 
+    @Step("Fill login")
     public void fillLogin(String login) {
         logger.info("Fill in login");
         this.loginInput.sendKeys(login);
     }
 
+    @Step("Fill password")
     public void fillPassword(String password) {
         logger.info("Fill in password");
         this.passwordInput.sendKeys(password);
     }
 
+    @Step("Click Submit button")
     public void clickSubmitButton() {
         logger.info("Click submit button");
         this.loginButton.click();
@@ -47,7 +51,6 @@ public class LoginPage {
 
     public void waitForLoadedLoginPage() {
         logger.info("Wait for Loaded Login Page");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(this.loginButton));
+        waitForVisible(driver, this.loginButton);
     }
 }

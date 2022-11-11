@@ -6,6 +6,7 @@ import com.blazej.reportportal2.utils.PropertiesLoader;
 import io.qameta.allure.Description;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @Description("Login to report portal with valid login and password")
+    @DisplayName("Check if 1k deposit Limit is blocking deposits over the limit")
     public void loginToReportPortal() {
         driver.navigate().to(this.pageUrl);
         LoginPage loginPage = new LoginPage(driver);
