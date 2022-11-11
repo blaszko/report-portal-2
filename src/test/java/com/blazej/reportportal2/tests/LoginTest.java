@@ -45,5 +45,4 @@ class LoginTest extends BaseTest {
         DashboardPage dashboardPage = new DashboardPage(driver);
         dashboardPage.verifyLoadedDashboardPage();
     }
-
 }
