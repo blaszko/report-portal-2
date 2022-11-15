@@ -5,20 +5,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import java.util.List;
 
-// page_url = http://localhost:8080/ui/#default_personal/dashboard
+import static com.blazej.reportportal2.utils.methodsModuleGui.WaitMethods.waitForVisible;
+
 public class DashboardPage {
-    @FindBy(css = "[title=\"All Dashboards\"]")
-    public WebElement dropdownAllDashboard;
-
-    // No page elements added
+    private final WebDriver driver;
 
     public DashboardPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 
-    public void verifyLoadedDashboardPage(){
+    @FindBy(css = "[title=\"All Dashboards\"]")
+    public WebElement dropdownAllDashboard;
+
+    public void verifyLoadedDashboardPage() {
+        waitForVisible(this.driver, dropdownAllDashboard);
         Assertions.assertTrue(this.dropdownAllDashboard.isDisplayed());
     }
 }
