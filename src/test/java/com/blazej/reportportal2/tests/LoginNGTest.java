@@ -4,7 +4,6 @@ import com.blazej.reportportal2.components.common.LoginPage;
 import com.blazej.reportportal2.components.dashboard.DashboardPage;
 import com.blazej.reportportal2.utils.PropertiesLoader;
 import com.github.javafaker.Faker;
-import io.qameta.allure.Description;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
@@ -12,16 +11,16 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Locale;
 
-class LoginTest extends BaseTest {
+public class LoginNGTest extends BaseTest {
     String login = PropertiesLoader.loadProperty("LOGIN");
     String password = PropertiesLoader.loadProperty("PASSWORD");
     private static final Logger logger = LogManager.getLogger(LoginPage.class.getName());
 
-    public LoginTest() throws IOException {
+    public LoginNGTest() throws IOException {
     }
 
-    @Description("Login to report portal with valid login and password")
-    void loginToReportPortal() throws Exception {
+    @Test
+    public void loginToReportPortal() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
@@ -32,9 +31,9 @@ class LoginTest extends BaseTest {
         dashboardPage.verifyLoadedDashboardPage();
     }
 
+    //    @Description("Login to report portal with not valid login ")
     @Test
-    @Description("Login to report portal with not valid login ")
-    void loginToReportPortalWithNotValidLogin() throws Exception {
+    public void loginToReportPortalWithNotValidLoginTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
@@ -45,7 +44,6 @@ class LoginTest extends BaseTest {
         loginPage.verifyLoginErrorMessage();
     }
 
-    @Description("Login to report portal with not valid password ")
     @Test
     void loginToReportPortalWithNotValidPasswordTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
