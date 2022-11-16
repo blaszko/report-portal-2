@@ -14,7 +14,7 @@ import java.util.Locale;
 public class LoginNGTest extends BaseTest {
     String login = PropertiesLoader.loadProperty("LOGIN");
     String password = PropertiesLoader.loadProperty("PASSWORD");
-    private static final Logger logger = LogManager.getLogger(LoginPage.class.getName());
+    private static final Logger logger = LogManager.getLogger(LoginNGTest.class.getName());
 
     public LoginNGTest() throws IOException {
     }
