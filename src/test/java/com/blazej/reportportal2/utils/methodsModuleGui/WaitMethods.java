@@ -27,4 +27,17 @@ public class WaitMethods {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    public static void waitForNotVisible(WebDriver driver, WebElement webElement) {
+
+        logger.info("Wait for element: " + webElement.toString());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.invisibilityOf(webElement));
+    }
+
+    public static void waitForNotVisible(WebDriver driver, By locator) {
+        logger.info("Wait for locator" + locator.toString());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
 }

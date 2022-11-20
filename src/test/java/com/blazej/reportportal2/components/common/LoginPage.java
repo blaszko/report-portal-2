@@ -4,11 +4,12 @@ import com.blazej.reportportal2.utils.PropertiesLoader;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ public class LoginPage {
     private final WebDriver driver;
     private static final Logger logger = LogManager.getLogger(LoginPage.class.getName());
     String url;
-    int timeout2sec;
+    int timeout2sec = 2;
 
     public LoginPage(WebDriver driver) throws IOException {
         PageFactory.initElements(driver, this);
@@ -75,6 +76,6 @@ public class LoginPage {
     @Step("Verify is error message appear")
     public void verifyLoginErrorMessage() {
         waitForVisible(this.driver, this.errorMessage);
-        Assertions.assertTrue(this.errorMessage.isDisplayed());
+        Assert.assertTrue(this.errorMessage.isDisplayed());
     }
 }

@@ -3,26 +3,40 @@ package com.blazej.reportportal2.tests;
 import com.blazej.reportportal2.components.common.LoginPage;
 import com.blazej.reportportal2.components.dashboard.DashboardPage;
 import com.blazej.reportportal2.utils.PropertiesLoader;
+import com.blazej.reportportal2.utils.WebDriverFactoryStaticThreadLocal;
 import com.github.javafaker.Faker;
-import io.qameta.allure.Description;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.Locale;
 
-class LoginTest extends BaseTest {
+public class LoginNGTest {
     String login = PropertiesLoader.loadProperty("LOGIN");
     String password = PropertiesLoader.loadProperty("PASSWORD");
-    private static final Logger logger = LogManager.getLogger(LoginPage.class.getName());
+    private static final Logger logger = LogManager.getLogger(LoginNGTest.class.getName());
 
-    public LoginTest() throws IOException {
+    public LoginNGTest() throws IOException {
     }
 
-    @Description("Login to report portal with valid login and password")
-    void loginToReportPortal() throws Exception {
-        LoginPage loginPage = new LoginPage(driver);
+    @BeforeMethod
+    public void setup() {
+        WebDriverFactoryStaticThreadLocal.setDriver();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        WebDriverFactoryStaticThreadLocal.closeBrowser();
+    }
+
+    @Test
+    public void loginToReportPortal() throws Exception {
+        WebDriver driver = WebDriverFactoryStaticThreadLocal.getDriver();
+        LoginPage loginPage = new LoginPage(WebDriverFactoryStaticThreadLocal.getDriver());
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
         loginPage.fillLogin(this.login);
@@ -32,9 +46,10 @@ class LoginTest extends BaseTest {
         dashboardPage.verifyLoadedDashboardPage();
     }
 
+    //    @Description("Login to report portal with not valid login ")
     @Test
-    @Description("Login to report portal with not valid login ")
-    void loginToReportPortalWithNotValidLogin() throws Exception {
+    public void loginToReportPortalWithNotValidLoginTest() throws Exception {
+        WebDriver driver = WebDriverFactoryStaticThreadLocal.getDriver();
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
@@ -45,9 +60,9 @@ class LoginTest extends BaseTest {
         loginPage.verifyLoginErrorMessage();
     }
 
-    @Description("Login to report portal with not valid password ")
     @Test
     void loginToReportPortalWithNotValidPasswordTest() throws Exception {
+        WebDriver driver = WebDriverFactoryStaticThreadLocal.getDriver();
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
