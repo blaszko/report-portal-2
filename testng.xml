@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Report Portal Tests">
+    <test name="Regression" thread-count="3" parallel="methods">
+        <classes>
+            <class name="com.blazej.reportportal2.tests.LoginNGTest"/>
+        </classes>
+    </test>
+<!--    <test name="Regression2" thread-count="3" parallel="methods">-->
+<!--        <classes>-->
+<!--            <class name="com.blazej.reportportal2.tests.LaunchTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+</suite> <!-- Suite -->
