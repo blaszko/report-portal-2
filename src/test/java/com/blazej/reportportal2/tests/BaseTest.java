@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 public class BaseTest {
-    protected WebDriver driver;
+    public WebDriver driver;
 
     @BeforeMethod
     public void setup() throws IOException {
@@ -20,6 +20,6 @@ public class BaseTest {
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        this.driver.quit();
     }
 }

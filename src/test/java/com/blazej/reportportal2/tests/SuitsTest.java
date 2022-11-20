@@ -3,6 +3,7 @@ package com.blazej.reportportal2.tests;
 import com.blazej.reportportal2.components.common.LoginPage;
 import com.blazej.reportportal2.components.dashboard.DashboardPage;
 import com.blazej.reportportal2.components.dashboard.LaunchesPage;
+import com.blazej.reportportal2.components.dashboard.SuitsPage;
 import com.blazej.reportportal2.utils.PropertiesLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,17 +13,17 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class LaunchTests extends BaseTest {
+public class SuitsTest extends BaseTest {
     String login = PropertiesLoader.loadProperty("LOGIN");
     String password = PropertiesLoader.loadProperty("PASSWORD");
 
     private static final Logger logger = LogManager.getLogger(LoginPage.class.getName());
 
-    public LaunchTests() throws IOException {
+    public SuitsTest() throws IOException {
     }
 
     @Test(dataProvider = "data")
-    public void verifyLaunches(String launchName, String launchNumber, String label, int columnNumber, String expectedValue) throws Exception {
+    public void verifyTestSuitesInLaunches(String launchName, String launchNumber, String suitName, String label, int columnNumber, String expectedValue) throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
@@ -31,7 +32,6 @@ public class LaunchTests extends BaseTest {
         loginPage.clickSubmitButton();
         DashboardPage dashboardPage = new DashboardPage(driver);
         dashboardPage.verifyLoadedDashboardPage();
-        dashboardPage.clickButtonLaunches();
 
         LaunchesPage launchesPage = new LaunchesPage(driver);
         launchesPage.navigateToLaunchesPage();
@@ -46,29 +46,25 @@ public class LaunchTests extends BaseTest {
         launchesPage.clickOptionLaunchNumberFilters("equals");
         launchesPage.fillInLunchNumber(launchNumber);
         launchesPage.waitForLoadedLaunchesPage();
+        launchesPage.clickFirstLaunch();
 
-        Assert.assertEquals(launchesPage.grabLaunchStatistics(columnNumber), expectedValue);
+        SuitsPage suitsPage = new SuitsPage(driver);
+        suitsPage.fillInSuitName(suitName);
+        suitsPage.waitForLoadedSuitsPage();
+        Assert.assertEquals(suitsPage.grabSuitStatistics(columnNumber), expectedValue);
     }
 
     @DataProvider(name = "data")
     public Object[][] dataProvider() {
         return new Object[][]{
-                {"Demo Api Tests", "2", "TOTAL", 4, "15"},
-                {"Demo Api Tests", "2", "PASSED", 5, "5"},
-                {"Demo Api Tests", "2", "FAILED", 6, "9"},
-                {"Demo Api Tests", "2", "SKIPPED", 7, "1"},
-                {"Demo Api Tests", "2", "PRODUCT_BUG", 8, "1"},
-                {"Demo Api Tests", "2", "AUTO_BUG", 9, "5"},
-                {"Demo Api Tests", "2", "SYSTEM_ISSUE", 10, "4"},
-                {"Demo Api Tests", "2", "TO_INVESTIGATE", 11, "8"},
-                {"Demo Api Tests", "1", "TOTAL", 4, "10"},
-                {"Demo Api Tests", "1", "PASSED", 5, "1"},
-                {"Demo Api Tests", "1", "FAILED", 6, "9"},
-                {"Demo Api Tests", "1", "SKIPPED", 7, ""},
-                {"Demo Api Tests", "1", "PRODUCT_BUG", 8, ""},
-                {"Demo Api Tests", "1", "AUTO_BUG", 9, "1"},
-                {"Demo Api Tests", "1", "SYSTEM_ISSUE", 10, "8"},
-                {"Demo Api Tests", "1", "TO_INVESTIGATE", 11, "5"}
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "TOTAL", 3, "8"},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "PASSED", 4, "5"},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "FAILED", 5, "3"},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "SKIPPED", 6, ""},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "PRODUCT_BUG", 7, ""},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "AUTO_BUG", 8, ""},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "SYSTEM_ISSUE", 9, "3"},
+                {"Demo Api Tests", "2", "Filtering Launch Tests", "TO_INVESTIGATE", 10, "3"},
         };
     }
 }

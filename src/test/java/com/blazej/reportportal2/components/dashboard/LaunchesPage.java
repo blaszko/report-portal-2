@@ -61,6 +61,8 @@ public class LaunchesPage {
             "[class^=\"inputConditional__condition\"]:nth-child(1)")
     WebElement optionEqualsLaunchNumber;
 
+    @FindBy(css = "[class^=\"launchSuiteGrid__name\"] [class^=\"itemInfo__main\"]")
+    WebElement buttonFirstLaunchOnGrid;
 
     private WebElement optionFilterMore(String optionName){
         return driver.findElement(By.xpath("*//span[text()=\"" + optionName + "\"]"));
@@ -76,11 +78,11 @@ public class LaunchesPage {
 
 
     @Step("Waiting for Launches page to load")
-    public void waitForLoadedLaunchesPage() {
-        logger.info("Wait for Loaded Launches Page");
+    public void waitForLoadedLaunchesPage() throws Exception {
+        Integer timeout2sec = 2;
+        sleep(timeout2sec);
         waitForVisible(this.driver, this.dropDownAllLaunches);
         waitForVisible(this.driver, this.labelPaginator);
-//        waitForNotVisible(this.driver, this.loaderManage);
     }
 
     @Step("Navigate to Launches Page")
@@ -130,6 +132,13 @@ public class LaunchesPage {
         Integer timeout2sec = 2;
         sleep(timeout2sec);
         return labelStatisticsOnGrid(number).getText();
+    }
+
+    @Step("Grab statistic")
+    public void clickFirstLaunch() throws Exception {
+        Integer timeout2sec = 2;
+        sleep(timeout2sec);
+       clickOnElement(driver, buttonFirstLaunchOnGrid);
     }
 
 }
