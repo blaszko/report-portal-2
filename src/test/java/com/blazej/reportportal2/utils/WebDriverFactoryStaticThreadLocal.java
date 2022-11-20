@@ -1,4 +1,4 @@
-package com.blazej.reportportal2.tests;
+package com.blazej.reportportal2.utils;
 
 import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class WebDriverFactoryStaticThreadLocal {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static  void setDriver() {
         WebDriverManager.chromedriver().setup();
@@ -28,6 +28,4 @@ public class WebDriverFactoryStaticThreadLocal {
         driver.get().close();
         driver.remove();
     }
-
-
 }

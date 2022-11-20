@@ -3,6 +3,7 @@ package com.blazej.reportportal2.tests;
 import com.blazej.reportportal2.components.common.LoginPage;
 import com.blazej.reportportal2.components.dashboard.DashboardPage;
 import com.blazej.reportportal2.utils.PropertiesLoader;
+import com.blazej.reportportal2.utils.WebDriverFactoryStaticThreadLocal;
 import com.github.javafaker.Faker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Locale;
 
-public class LoginNGTest{
+public class LoginNGTest {
     String login = PropertiesLoader.loadProperty("LOGIN");
     String password = PropertiesLoader.loadProperty("PASSWORD");
     private static final Logger logger = LogManager.getLogger(LoginNGTest.class.getName());
@@ -23,18 +24,19 @@ public class LoginNGTest{
     }
 
     @BeforeMethod
-    public void setup(){
+    public void setup() {
         WebDriverFactoryStaticThreadLocal.setDriver();
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown() {
         WebDriverFactoryStaticThreadLocal.closeBrowser();
     }
+
     @Test
     public void loginToReportPortal() throws Exception {
         WebDriver driver = WebDriverFactoryStaticThreadLocal.getDriver();
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(WebDriverFactoryStaticThreadLocal.getDriver());
         loginPage.navigateToLoginPage();
         loginPage.waitForLoadedLoginPage();
         loginPage.fillLogin(this.login);
